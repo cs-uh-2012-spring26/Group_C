@@ -1,8 +1,16 @@
 from flask import Flask, request, jsonify
+import json
 
 app = Flask(__name__)
 
 classes_db = []
+
+#load all the classes that were created previously
+try:
+    with open('classes_db.json', 'r') as file:
+        classes_db = json.load(file)
+except (FileNotFoundError, json.JSONDecodeError):
+    classes_db = []
 
 @app.route('/classes', methods=['POST'])
 def create_class():
@@ -41,7 +49,20 @@ def create_class():
     
     classes_db.append(new_class)
 
+    # Save classes to a file
+    with open('classes_db.json', 'w') as file:
+        json.dump(classes_db, file)
+
     return jsonify({"message": "Class created successfully", "class": new_class}), 201
+
+@app.route('/classes', methods=['GET'])
+def view_classes():
+    #everyone can view the classes, so no role check is needed
+    #get the list of all classes
+    if not classes_db:
+        return jsonify({"message": "No classes available"}), 200
+
+    return jsonify({"classes": classes_db}), 200
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
