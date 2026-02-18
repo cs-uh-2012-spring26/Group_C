@@ -12,6 +12,8 @@ try:
 except (FileNotFoundError, json.JSONDecodeError):
     classes_db = []
 
+
+
 @app.route('/classes', methods=['POST'])
 def create_class():
     # Requirement: Only Admin or Trainer can create classes.
@@ -44,7 +46,8 @@ def create_class():
         "date": data['date'],
         "start_time": data['start_time'],
         "end_time": data['end_time'],
-        "created_by": user_role
+        "created_by": user_role,
+        "booked_members": []
     }
     
     classes_db.append(new_class)
@@ -55,6 +58,8 @@ def create_class():
 
     return jsonify({"message": "Class created successfully", "class": new_class}), 201
 
+
+
 @app.route('/classes', methods=['GET'])
 def view_classes():
     #everyone can view the classes, so no role check is needed
@@ -63,6 +68,44 @@ def view_classes():
         return jsonify({"message": "No classes available"}), 200
 
     return jsonify({"classes": classes_db}), 200
+
+
+@app.route('/classes/<int:class_id>/book', methods=['POST'])
+def book_class(class_id):
+
+    user_role = request.headers.get('Role')
+    member_name = request.headers.get('User')
+
+    # Only Member can book
+    if user_role != 'Member':
+        return jsonify({"error": "Unauthorized: Only Members can book classes."}), 403
+
+    if not member_name:
+        return jsonify({"error": "Member name is required in header."}), 400
+
+    # Find class
+    fitness_class = next((c for c in classes_db if c['id'] == class_id), None)
+
+    if not fitness_class:
+        return jsonify({"error": "Class not found."}), 404
+
+    # Check duplicate booking
+    if member_name in fitness_class['booked_members']:
+        return jsonify({"error": "Member already booked this class."}), 400
+
+    # Check capacity
+    if len(fitness_class['booked_members']) >= fitness_class['capacity']:
+        return jsonify({"error": "Class is full."}), 400
+
+    # Add booking
+    fitness_class['booked_members'].append(member_name)
+
+    # Save to file
+    with open('classes_db.json', 'w') as file:
+        json.dump(classes_db, file)
+
+    return jsonify({"message": "Booking successful."}), 200
+
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
