@@ -107,5 +107,32 @@ def book_class(class_id):
     return jsonify({"message": "Booking successful."}), 200
 
 
+
+@app.route('/classes/<int:class_id>/members', methods=['GET'])
+def view_members(class_id):
+
+    user_role = request.headers.get('Role')
+
+    # Only Admin or Trainer allowed
+    if user_role not in ['Admin', 'Trainer']:
+        return jsonify({"error": "Unauthorized: Only Admins or Trainers can view member list."}), 403
+
+    # Find class
+    fitness_class = next((c for c in classes_db if c['id'] == class_id), None)
+
+    if not fitness_class:
+        return jsonify({"error": "Class not found."}), 404
+
+    # If no members booked
+    if not fitness_class.get('booked_members'):
+        return jsonify({"message": "No members have booked this class yet."}), 200
+
+    return jsonify({
+        "class_id": class_id,
+        "booked_members": fitness_class['booked_members']
+    }), 200
+
+
+
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
