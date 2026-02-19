@@ -31,7 +31,7 @@
 
 ---
 
-````markdown
+
 ## Use Case 1: Create Class
 
 **Actor:** Admin / Trainer  
@@ -152,3 +152,4 @@
 * Actor can view all members currently booked in the class.
 
 ```
+
