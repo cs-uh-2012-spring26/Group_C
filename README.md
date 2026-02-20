@@ -176,3 +176,25 @@ This allows classes and bookings to remain saved after restarting the server.
 
 ---
 
+##  Authentication
+
+This project uses **Token-Based Authentication (Bearer Token)**.
+
+Users must:
+
+1. Register  
+2. Login  
+3. Use the returned token to access protected endpoints  
+
+
+Access Swagger at: http://127.0.0.1:5000/apidocs
+
+---
+
+### Using the Token in Swagger after logging in
+
+- Click Authorize (top right in /apidocs)
+- Enter: Bearer <your_token>
+- Click Authorize
+
+
