@@ -299,8 +299,6 @@ def view_classes():
     """
 
     user = authenticate_token()
-    if not user:
-        return jsonify({"error": "Unauthorized"}), 403
 
     if not classes_db:
         return jsonify({"message": "No classes available"}), 200
