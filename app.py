@@ -302,9 +302,6 @@ def view_classes():
     if not user:
         return jsonify({"error": "Unauthorized"}), 403
 
-    if user['role'] not in ['Admin', 'Trainer']:
-        return jsonify({"error": "Only Admin/Trainer can view classes"}), 403
-
     if not classes_db:
         return jsonify({"message": "No classes available"}), 200
 
