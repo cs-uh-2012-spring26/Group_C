@@ -176,15 +176,3 @@ This allows classes and bookings to remain saved after restarting the server.
 
 ---
 
-## Project Structure
-
-```
-Group_C/
-│── app.py
-│── classes_db.json
-│── requirements.txt
-│── README.md
-```
-
----
-
