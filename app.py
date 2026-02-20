@@ -303,7 +303,12 @@ def view_classes():
     if not classes_db:
         return jsonify({"message": "No classes available"}), 200
 
-    return jsonify({"classes": classes_db}), 200
+    public_classes = [
+        {key: value for key, value in c.items() if key != 'booked_members'}
+        for c in classes_db
+    ]
+
+    return jsonify({"classes": public_classes}), 200
 
 
 # ==============================
