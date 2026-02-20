@@ -18,7 +18,7 @@
 ### 2.1 Use Case Diagram
 
 
-![Use Case Diagram](UML.jpg)
+![Use Case Diagram](UML.png)
 
 
 
@@ -152,6 +152,7 @@
 * Actor can view all members currently booked in the class.
 
 ```
+
 
 
 
