@@ -2,15 +2,15 @@
 
 ## 1. Requirements Elicitation and Analysis
 
+**Meeting Date:** February 10, 2026
 
+**Elicitation Techniques Used:**
+* [cite_start]**Structured Interview / Q&A:** We conducted a direct question-and-answer session with the client to define the scope of Sprint 1. We specifically asked about user roles, authentication requirements, and class constraints to build our initial backlog.
+* [cite_start]**Constraint Analysis:** We walked through potential features like password recovery, payments, and notifications to determine what was necessary for the current sprint and what should be deferred to future work.
 
-
-
-
-
-
-
-
+**Reflections:**
+1. **Utility of Techniques:** The structured interview was highly effective for establishing strict boundaries for the project. [cite_start]By asking specific questions about features like password verification and payment systems, we were able to eliminate unnecessary work and focus purely on the core booking and class management logic. In retrospect, having a prepared list of technical constraints allowed us to move through the meeting efficiently without leaving any "grey areas" in the requirements.
+2. **Important Clarification Gained:** A critical clarification gained was regarding class scheduling and capacity. [cite_start]We learned that while class times are permitted to overlap, the trainer must have the authority to set a specific capacity limit for each session. [cite_start]This detail was vital as it dictated our validation logic—ensuring the system checks for full capacity during booking even if the time slot itself is busy.
 
 
 ## 2. Requirements Specification
