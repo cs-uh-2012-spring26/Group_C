@@ -160,7 +160,7 @@ Server runs at:
 http://127.0.0.1:5000
 ```
 
-> Note: The root URL `/` is not implemented. Use `/classes`.
+> Note: The root URL `/` is not implemented. Use `/apidocs`.
 
 ---
 
